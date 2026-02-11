@@ -43,10 +43,10 @@ export default function LeadForm() {
         <CheckCircle2 className="w-16 h-16 text-accent mx-auto mb-4 animate-pulse" />
         <h3 className="text-2xl font-bold text-foreground mb-2">Sucesso!</h3>
         <p className="text-muted-foreground mb-4">
-          Verifique seu email para baixar o Ebook Missao Aguia
+          Verifique seu email para baixar o Ebook Missão Águia
         </p>
         <p className="text-sm text-muted-foreground">
-          Voce tambem receberah dicas exclusivas no seu email
+          Você também receberá dicas exclusivas no seu email
         </p>
       </div>
     );
@@ -96,7 +96,7 @@ export default function LeadForm() {
       </Button>
 
       <p className="text-xs text-muted-foreground text-center">
-        Seus dados estao seguros. Nunca compartilharemos seu email.
+        Seus dados estão seguros. Nunca compartilharemos seu email.
       </p>
     </form>
   );

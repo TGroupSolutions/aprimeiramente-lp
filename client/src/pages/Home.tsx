@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { ChevronDown, Award, Users, Zap, Shield } from 'lucide-react';
+import { ChevronDown, Award, Users, Zap, Shield, Heart, Brain, Sparkles } from 'lucide-react';
 import LeadForm from '@/components/LeadForm';
 
 export default function Home() {
@@ -45,26 +45,36 @@ export default function Home() {
             <div className="space-y-8 animate-fade-in">
               <div className="space-y-4">
                 <h1 className="text-5xl lg:text-7xl font-bold leading-tight text-foreground">
-                  De <span className="text-accent">Falida</span> a <span className="text-accent">Extraordinaria</span>
+                  De <span className="text-accent">Falida</span> a <span className="text-accent">Extraordinária</span>
                 </h1>
                 <p className="text-xl text-muted-foreground leading-relaxed">
-                  A jornada completa de transformacao pessoal, financeira e espiritual que mudou minha vida para sempre.
+                  A jornada completa de transformação pessoal, financeira e espiritual que mudou minha vida para sempre. Metodologia testada que já transformou 815 pessoas.
                 </p>
               </div>
 
               <div className="space-y-3 pt-4">
                 <div className="flex items-start gap-3">
                   <div className="w-1 h-1 rounded-full bg-accent mt-2 flex-shrink-0"></div>
-                  <p className="text-foreground">Metodologia testada e comprovada</p>
+                  <p className="text-foreground">Metodologia comprovada reunindo técnicas antigas que funcionam</p>
                 </div>
                 <div className="flex items-start gap-3">
                   <div className="w-1 h-1 rounded-full bg-accent mt-2 flex-shrink-0"></div>
-                  <p className="text-foreground">815 pessoas ja transformaram suas vidas</p>
+                  <p className="text-foreground">815 pessoas já venceram a primeira etapa em apenas 2 meses</p>
                 </div>
                 <div className="flex items-start gap-3">
                   <div className="w-1 h-1 rounded-full bg-accent mt-2 flex-shrink-0"></div>
-                  <p className="text-foreground">Aplicacao pratica com codigos para praticar</p>
+                  <p className="text-foreground">Códigos práticos para aplicar imediatamente após o treinamento</p>
                 </div>
+                <div className="flex items-start gap-3">
+                  <div className="w-1 h-1 rounded-full bg-accent mt-2 flex-shrink-0"></div>
+                  <p className="text-foreground">Conteúdo que você nunca verá em reels, stories ou lives</p>
+                </div>
+              </div>
+
+              <div className="pt-4 border-t border-accent/30">
+                <p className="text-accent font-semibold italic">
+                  "Vou te levar ao nível hard do acesso. Do seu jeito foi assim até hoje, te convido a fazer do jeito que deu e tem dado muito certo comigo."
+                </p>
               </div>
             </div>
 
@@ -73,12 +83,21 @@ export default function Home() {
               <div className="bg-card border border-border rounded-lg p-8 shadow-2xl backdrop-blur-sm">
                 <div className="space-y-2 mb-6">
                   <h2 className="text-3xl font-bold text-foreground">Baixe Seu Ebook Gratuito</h2>
-                  <p className="text-muted-foreground">Missao Aguia - Acesse sua primeira mente</p>
+                  <p className="text-accent font-semibold">Missão Águia - Acesse sua primeira mente</p>
                 </div>
 
                 <div className="mb-6 p-4 bg-secondary rounded border border-accent/20">
-                  <p className="text-sm text-muted-foreground">
-                    <span className="text-accent font-bold">Oferta Limitada:</span> Apenas para os proximos 100 inscritos neste mes
+                  <p className="text-sm text-muted-foreground mb-2">
+                    <span className="text-accent font-bold">⚡ Oferta Limitada:</span>
+                  </p>
+                  <p className="text-sm text-foreground font-semibold">
+                    Apenas para os próximos 100 inscritos neste mês
+                  </p>
+                </div>
+
+                <div className="mb-6 p-3 bg-accent/10 rounded border border-accent/30">
+                  <p className="text-xs text-muted-foreground">
+                    <span className="text-accent">✓</span> Seja muito bem-vindo(a)! Você está prestes a acessar a metodologia que transformou 815 vidas.
                   </p>
                 </div>
 
@@ -113,11 +132,79 @@ export default function Home() {
         </svg>
       </div>
 
-      {/* Secao de Beneficios */}
+      {/* Secao sobre o diferencial */}
       <section className="py-20 bg-secondary/30">
         <div className="container max-w-6xl mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-foreground mb-4">Por Que Missao Aguia?</h2>
+            <h2 className="text-4xl font-bold text-foreground mb-4">Mais que um Projeto, um Propósito</h2>
+            <div className="w-16 h-1 bg-accent mx-auto"></div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            <div className="space-y-6">
+              <p className="text-lg text-muted-foreground leading-relaxed">
+                Será diferente de tudo que você já viu aqui no digital. Meu primeiro livro retrata minha trajetória completa com todos os erros e acertos que me trouxeram até aqui.
+              </p>
+              
+              <div className="bg-card border border-border rounded-lg p-6 space-y-4">
+                <h3 className="text-xl font-bold text-foreground">O Diferencial</h3>
+                <p className="text-muted-foreground">
+                  Não será vendido por preço fixo. Você vai baixar, aplicar toda a metodologia que desenvolvi reunindo várias técnicas antigas que deram muito resultado ao serem aplicadas juntas.
+                </p>
+                <p className="text-muted-foreground">
+                  Depois vai aplicar um dos códigos que vai aprender no livro e ter a oportunidade de praticar quando terminar todo o treinamento.
+                </p>
+              </div>
+
+              <div className="bg-accent/10 border border-accent/30 rounded-lg p-6">
+                <p className="text-foreground font-semibold italic">
+                  "Nada de sabotar sua transformação e ir para o final hein? Do seu jeito foi assim até hoje, te convido a fazer do jeito que deu e tem dado muito certo comigo."
+                </p>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-6">
+              {[
+                {
+                  icon: Brain,
+                  title: 'Neurociência',
+                  description: 'Baseado em técnicas de reprogramação mental'
+                },
+                {
+                  icon: Heart,
+                  title: 'Vida com Deus',
+                  description: 'Transformação espiritual e pessoal'
+                },
+                {
+                  icon: Sparkles,
+                  title: 'Elegância',
+                  description: 'Desenvolvimento pessoal sofisticado'
+                },
+                {
+                  icon: Award,
+                  title: 'Negócios',
+                  description: 'Estratégias comprovadas de sucesso'
+                }
+              ].map((benefit, idx) => (
+                <div
+                  key={idx}
+                  className="bg-card border border-border rounded-lg p-6 hover:border-accent/50 transition-all duration-300 hover:shadow-lg hover:shadow-accent/10 group text-center"
+                >
+                  <benefit.icon className="w-10 h-10 text-accent mx-auto mb-3 group-hover:scale-110 transition-transform" />
+                  <h3 className="font-bold text-foreground mb-1">{benefit.title}</h3>
+                  <p className="text-muted-foreground text-sm">{benefit.description}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Secao de Beneficios */}
+      <section className="py-20 bg-background">
+        <div className="container max-w-6xl mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-foreground mb-4">Por Que Missão Águia?</h2>
             <div className="w-16 h-1 bg-accent mx-auto"></div>
           </div>
 
@@ -126,22 +213,22 @@ export default function Home() {
               {
                 icon: Award,
                 title: 'Metodologia Comprovada',
-                description: 'Resultado de anos de pesquisa e pratica'
+                description: 'Resultado de anos de pesquisa e prática reunindo técnicas que funcionam'
               },
               {
                 icon: Users,
-                title: '815 Transformacoes',
-                description: 'Pessoas que ja mudaram suas vidas'
+                title: '815 Transformações',
+                description: 'Pessoas que já mudaram suas vidas em apenas 2 meses'
               },
               {
                 icon: Zap,
-                title: 'Acao Imediata',
-                description: 'Codigos praticos para aplicar hoje mesmo'
+                title: 'Ação Imediata',
+                description: 'Códigos práticos para aplicar hoje mesmo após o treinamento'
               },
               {
                 icon: Shield,
                 title: 'Garantia Total',
-                description: 'Seu email seguro e nunca compartilhado'
+                description: 'Seu email seguro e nunca compartilhado com terceiros'
               }
             ].map((benefit, idx) => (
               <div
@@ -158,23 +245,28 @@ export default function Home() {
       </section>
 
       {/* Secao de Prova Social */}
-      <section className="py-20 bg-background">
+      <section className="py-20 bg-secondary/30">
         <div className="container max-w-6xl mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-foreground mb-4">É Janeiro de 2026...</h2>
+            <p className="text-muted-foreground text-lg">Começa oficialmente o projeto</p>
+          </div>
+
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-            <div className="space-y-2">
+            <div className="space-y-2 bg-card border border-border rounded-lg p-8 hover:border-accent/50 transition-all">
               <div className="text-5xl font-bold text-accent">815</div>
               <p className="text-foreground font-semibold">Pessoas Transformadas</p>
-              <p className="text-muted-foreground text-sm">Em apenas 2 meses de espera</p>
+              <p className="text-muted-foreground text-sm">Que venceram a primeira etapa e aguardaram 2 meses</p>
             </div>
-            <div className="space-y-2">
+            <div className="space-y-2 bg-card border border-border rounded-lg p-8 hover:border-accent/50 transition-all">
               <div className="text-5xl font-bold text-accent">100%</div>
-              <p className="text-foreground font-semibold">Taxa de Conclusao</p>
-              <p className="text-muted-foreground text-sm">Metodologia que funciona</p>
+              <p className="text-foreground font-semibold">Taxa de Conclusão</p>
+              <p className="text-muted-foreground text-sm">Metodologia que funciona e transforma vidas</p>
             </div>
-            <div className="space-y-2">
+            <div className="space-y-2 bg-card border border-border rounded-lg p-8 hover:border-accent/50 transition-all">
               <div className="text-5xl font-bold text-accent">0</div>
               <p className="text-foreground font-semibold">Custo Inicial</p>
-              <p className="text-muted-foreground text-sm">Ebook completamente gratuito</p>
+              <p className="text-muted-foreground text-sm">Ebook completamente gratuito para você</p>
             </div>
           </div>
         </div>
@@ -184,10 +276,10 @@ export default function Home() {
       <section className="py-20 bg-card border-t border-border">
         <div className="container max-w-2xl mx-auto px-4 text-center space-y-8">
           <h2 className="text-4xl font-bold text-foreground">
-            Pronto Para Sua <span className="text-accent">Transformacao</span>?
+            Pronto Para Sua <span className="text-accent">Transformação</span>?
           </h2>
           <p className="text-lg text-muted-foreground">
-            Nao deixe para depois. Seu ebook Missao Aguia esta esperando por voce.
+            Não deixe para depois. Seu ebook Missão Águia está esperando por você. Identifique e reprograme todos os seus bloqueios, transformando sua vida e negócios em extraordinários!
           </p>
           <div className="bg-background rounded-lg p-8 max-w-md mx-auto">
             <LeadForm />
@@ -198,8 +290,11 @@ export default function Home() {
       {/* Footer */}
       <footer className="bg-secondary border-t border-border py-8">
         <div className="container max-w-6xl mx-auto px-4 text-center">
-          <p className="text-muted-foreground text-sm">
-            Instituto Missao Aguia - 2026. Todos os direitos reservados.
+          <p className="text-muted-foreground text-sm mb-2">
+            Instituto Missão Águia - 2026
+          </p>
+          <p className="text-muted-foreground text-xs">
+            Todos os direitos reservados
           </p>
         </div>
       </footer>
