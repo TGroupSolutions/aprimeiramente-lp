@@ -5,6 +5,7 @@ import { publicProcedure, router } from "./_core/trpc";
 import { z } from "zod";
 import { getDb } from "./db";
 import { leads } from "../drizzle/schema";
+import { sendWelcomeEmail, sendLeadNotificationToOwner } from "./email";
 
 export const appRouter = router({
   system: systemRouter,
@@ -35,11 +36,31 @@ export const appRouter = router({
         }
 
         try {
+          // Salvar lead no banco de dados
           await db.insert(leads).values({
             name: input.name,
             email: input.email,
             whatsapp: input.whatsapp,
             source: "landing_page",
+          });
+
+          // URL do PDF
+          const pdfUrl = "https://files.manuscdn.com/user_upload_by_module/session_file/310419663029763692/DpkEZiNKWaemYiGh.pdf";
+
+          // Enviar email de boas-vindas ao lead
+          await sendWelcomeEmail({
+            to: input.email,
+            subject: "Seu Ebook Missão Águia está pronto! 🦅",
+            name: input.name,
+            whatsapp: input.whatsapp,
+            pdfUrl,
+          });
+
+          // Enviar notificação ao proprietário
+          await sendLeadNotificationToOwner({
+            name: input.name,
+            email: input.email,
+            whatsapp: input.whatsapp,
           });
 
           return {

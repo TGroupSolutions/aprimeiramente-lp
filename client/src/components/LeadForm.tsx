@@ -5,7 +5,11 @@ import { Loader2, CheckCircle2 } from 'lucide-react';
 import { trpc } from '@/lib/trpc';
 import { trackMetaPixelLead, trackGoogleAnalyticsLead } from '@/lib/analytics';
 
-export default function LeadForm() {
+interface LeadFormProps {
+  pdfUrl?: string;
+}
+
+export default function LeadForm({ pdfUrl = 'https://files.manuscdn.com/user_upload_by_module/session_file/310419663029763692/DpkEZiNKWaemYiGh.pdf' }: LeadFormProps) {
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
   const [whatsapp, setWhatsapp] = useState('');
@@ -17,8 +21,10 @@ export default function LeadForm() {
 
   const formatWhatsApp = (value: string) => {
     const cleaned = value.replace(/\D/g, '');
+    if (cleaned.length === 0) return '';
     if (cleaned.length <= 2) return cleaned;
     if (cleaned.length <= 7) return `(${cleaned.slice(0, 2)}) ${cleaned.slice(2)}`;
+    if (cleaned.length <= 11) return `(${cleaned.slice(0, 2)}) ${cleaned.slice(2, 7)}-${cleaned.slice(7)}`;
     return `(${cleaned.slice(0, 2)}) ${cleaned.slice(2, 7)}-${cleaned.slice(7, 11)}`;
   };
 
@@ -43,7 +49,7 @@ export default function LeadForm() {
 
     const cleanedWhatsApp = whatsapp.replace(/\D/g, '');
     if (cleanedWhatsApp.length < 10) {
-      setError('WhatsApp inválido');
+      setError('WhatsApp inválido (mínimo 10 dígitos)');
       return;
     }
 
@@ -98,9 +104,16 @@ export default function LeadForm() {
         <p className="text-muted-foreground mb-4">
           Verifique seu email para baixar o Ebook Missão Águia
         </p>
-        <p className="text-sm text-muted-foreground">
+        <p className="text-sm text-muted-foreground mb-6">
           Você também receberá dicas exclusivas no seu WhatsApp
         </p>
+        <a
+          href={pdfUrl}
+          download
+          className="inline-block bg-accent hover:bg-accent/90 text-accent-foreground font-bold py-2 px-6 rounded transition-all duration-300"
+        >
+          Baixar Ebook Agora
+        </a>
       </div>
     );
   }
@@ -108,6 +121,7 @@ export default function LeadForm() {
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       <div>
+        <label className="block text-sm font-medium text-foreground mb-1">Nome Completo</label>
         <Input
           type="text"
           placeholder="Seu nome completo"
@@ -115,10 +129,12 @@ export default function LeadForm() {
           onChange={(e) => setName(e.target.value)}
           className="bg-secondary border-border text-foreground placeholder:text-muted-foreground focus:border-accent focus:ring-accent"
           disabled={loading}
+          required
         />
       </div>
       
       <div>
+        <label className="block text-sm font-medium text-foreground mb-1">Email</label>
         <Input
           type="email"
           placeholder="seu@email.com"
@@ -126,10 +142,12 @@ export default function LeadForm() {
           onChange={(e) => setEmail(e.target.value)}
           className="bg-secondary border-border text-foreground placeholder:text-muted-foreground focus:border-accent focus:ring-accent"
           disabled={loading}
+          required
         />
       </div>
 
       <div>
+        <label className="block text-sm font-medium text-foreground mb-1">WhatsApp</label>
         <Input
           type="tel"
           placeholder="(11) 99999-9999"
@@ -137,11 +155,12 @@ export default function LeadForm() {
           onChange={handleWhatsAppChange}
           className="bg-secondary border-border text-foreground placeholder:text-muted-foreground focus:border-accent focus:ring-accent"
           disabled={loading}
+          required
         />
       </div>
 
       {error && (
-        <p className="text-sm text-red-500">{error}</p>
+        <p className="text-sm text-red-500 bg-red-500/10 p-2 rounded">{error}</p>
       )}
 
       <Button
