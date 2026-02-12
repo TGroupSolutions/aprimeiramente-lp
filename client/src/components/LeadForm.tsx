@@ -2,36 +2,89 @@ import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Loader2, CheckCircle2 } from 'lucide-react';
+import { trpc } from '@/lib/trpc';
+import { trackMetaPixelLead, trackGoogleAnalyticsLead } from '@/lib/analytics';
 
 export default function LeadForm() {
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
+  const [whatsapp, setWhatsapp] = useState('');
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState('');
+
+  const submitLead = trpc.leads.create.useMutation();
+
+  const formatWhatsApp = (value: string) => {
+    const cleaned = value.replace(/\D/g, '');
+    if (cleaned.length <= 2) return cleaned;
+    if (cleaned.length <= 7) return `(${cleaned.slice(0, 2)}) ${cleaned.slice(2)}`;
+    return `(${cleaned.slice(0, 2)}) ${cleaned.slice(2, 7)}-${cleaned.slice(7, 11)}`;
+  };
+
+  const handleWhatsAppChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const formatted = formatWhatsApp(e.target.value);
+    setWhatsapp(formatted);
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
     
-    if (!email || !name) {
+    if (!email || !name || !whatsapp) {
       setError('Por favor, preencha todos os campos');
+      return;
+    }
+
+    if (!email.includes('@')) {
+      setError('Email inválido');
+      return;
+    }
+
+    const cleanedWhatsApp = whatsapp.replace(/\D/g, '');
+    if (cleanedWhatsApp.length < 10) {
+      setError('WhatsApp inválido');
       return;
     }
 
     setLoading(true);
     
     try {
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      await submitLead.mutateAsync({
+        name,
+        email,
+        whatsapp: cleanedWhatsApp,
+      });
+
+      // Rastrear conversão no Meta Pixel
+      trackMetaPixelLead({
+        name,
+        email,
+        phone: cleanedWhatsApp,
+        value: 0,
+        currency: 'BRL',
+      });
+
+      // Rastrear conversão no Google Analytics
+      trackGoogleAnalyticsLead({
+        name,
+        email,
+        phone: cleanedWhatsApp,
+        value: 0,
+        currency: 'BRL',
+      });
+      
       setSuccess(true);
       setEmail('');
       setName('');
+      setWhatsapp('');
       
       setTimeout(() => {
         setSuccess(false);
       }, 5000);
     } catch (err) {
       setError('Erro ao enviar. Tente novamente.');
+      console.error(err);
     } finally {
       setLoading(false);
     }
@@ -46,7 +99,7 @@ export default function LeadForm() {
           Verifique seu email para baixar o Ebook Missão Águia
         </p>
         <p className="text-sm text-muted-foreground">
-          Você também receberá dicas exclusivas no seu email
+          Você também receberá dicas exclusivas no seu WhatsApp
         </p>
       </div>
     );
@@ -71,6 +124,17 @@ export default function LeadForm() {
           placeholder="seu@email.com"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          className="bg-secondary border-border text-foreground placeholder:text-muted-foreground focus:border-accent focus:ring-accent"
+          disabled={loading}
+        />
+      </div>
+
+      <div>
+        <Input
+          type="tel"
+          placeholder="(11) 99999-9999"
+          value={whatsapp}
+          onChange={handleWhatsAppChange}
           className="bg-secondary border-border text-foreground placeholder:text-muted-foreground focus:border-accent focus:ring-accent"
           disabled={loading}
         />

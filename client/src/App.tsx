@@ -5,17 +5,27 @@ import { Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import Home from "./pages/Home";
-
+import { useEffect } from "react";
+import { initializePixels } from "./lib/pixelConfig";
 
 function Router() {
+  // make sure to consider if you need authentication for certain routes
   return (
     <Switch>
-      <Route path={"/"} component={Home} />
+      <Route path={"\\"} component={Home} />
       <Route path={"/404"} component={NotFound} />
       {/* Final fallback route */}
       <Route component={NotFound} />
     </Switch>
   );
+}
+
+function AppWithPixels() {
+  useEffect(() => {
+    initializePixels();
+  }, []);
+
+  return <App />;
 }
 
 // NOTE: About Theme
@@ -38,4 +48,4 @@ function App() {
   );
 }
 
-export default App;
+export default AppWithPixels;
