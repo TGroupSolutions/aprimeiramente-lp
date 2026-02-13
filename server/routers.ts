@@ -21,6 +21,24 @@ export const appRouter = router({
   }),
 
   leads: router({
+    testEmail: publicProcedure.mutation(async () => {
+      try {
+        // Enviar email de teste
+        await sendLeadNotificationToOwner({
+          name: "Teste de Email",
+          email: "teste@example.com",
+          whatsapp: "(11) 99999-9999",
+        });
+
+        return {
+          success: true,
+          message: "Email de teste enviado para vanessa.barpontes@gmail.com",
+        };
+      } catch (error) {
+        console.error("Erro ao enviar email de teste:", error);
+        throw new Error("Erro ao enviar email de teste");
+      }
+    }),
     create: publicProcedure
       .input(
         z.object({
@@ -62,6 +80,9 @@ export const appRouter = router({
             email: input.email,
             whatsapp: input.whatsapp,
           });
+
+          // Notificar o proprietário em tempo real (se houver sistema de notificação)
+          // TODO: Implementar notificação em tempo real via WebSocket
 
           return {
             success: true,
