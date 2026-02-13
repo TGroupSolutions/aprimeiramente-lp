@@ -78,30 +78,16 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Coluna direita - Formulario */}
-            <div className="relative">
-              <div className="bg-card border border-border rounded-lg p-8 shadow-2xl backdrop-blur-sm">
-                <div className="space-y-2 mb-6">
-                  <h2 className="text-3xl font-bold text-foreground">Baixe Seu Ebook Gratuito</h2>
-                  <p className="text-accent font-semibold">Missão Águia - Acesse sua primeira mente</p>
-                </div>
-
-                <div className="mb-6 p-4 bg-secondary rounded border border-accent/20">
-                  <p className="text-sm text-muted-foreground mb-2">
-                    <span className="text-accent font-bold">⚡ Oferta Limitada:</span>
-                  </p>
-                  <p className="text-sm text-foreground font-semibold">
-                    Apenas para os próximos 100 inscritos neste mês
-                  </p>
-                </div>
-
-                <div className="mb-6 p-3 bg-accent/10 rounded border border-accent/30">
-                  <p className="text-xs text-muted-foreground">
-                    <span className="text-accent">✓</span> Seja muito bem-vindo(a)! Você está prestes a acessar a metodologia que transformou 815 vidas.
-                  </p>
-                </div>
-
-                <LeadForm />
+            {/* Coluna direita - CTA */}
+            <div className="relative flex flex-col items-center justify-center space-y-6">
+              <div className="text-center space-y-4">
+                <h2 className="text-3xl font-bold text-foreground">Comece Sua Jornada Agora</h2>
+                <p className="text-lg text-muted-foreground">Acesso imediato ao Ebook Missão Águia</p>
+              </div>
+              
+              <div className="bg-accent/10 border-2 border-accent rounded-lg p-6 text-center space-y-3 max-w-sm">
+                <p className="text-accent font-bold text-lg">⚡ Oferta Limitada</p>
+                <p className="text-foreground font-semibold">Apenas para os próximos 100 inscritos neste mês</p>
               </div>
 
               {/* Decoracao - Linhas de ouro */}
