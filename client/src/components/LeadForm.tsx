@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Loader2, CheckCircle2 } from 'lucide-react';
+import { Loader2, CheckCircle2, AlertCircle } from 'lucide-react';
 import { trpc } from '@/lib/trpc';
 import { trackMetaPixelLead, trackGoogleAnalyticsLead } from '@/lib/analytics';
+import { toast } from 'sonner';
 
 interface LeadFormProps {
   pdfUrl?: string;
@@ -39,48 +40,65 @@ export default function LeadForm({ pdfUrl = 'https://files.manuscdn.com/user_upl
     
     if (!email || !name || !whatsapp) {
       setError('Por favor, preencha todos os campos');
+      toast.error('Por favor, preencha todos os campos');
       return;
     }
 
     if (!email.includes('@')) {
       setError('Email inválido');
+      toast.error('Email inválido');
       return;
     }
 
     const cleanedWhatsApp = whatsapp.replace(/\D/g, '');
+
     if (cleanedWhatsApp.length < 10) {
       setError('WhatsApp inválido (mínimo 10 dígitos)');
+      toast.error('WhatsApp inválido (mínimo 10 dígitos)');
       return;
     }
 
     setLoading(true);
     
     try {
-      await submitLead.mutateAsync({
+      console.log('Enviando lead:', { name, email, whatsapp: cleanedWhatsApp });
+      
+      const result = await submitLead.mutateAsync({
         name,
         email,
         whatsapp: cleanedWhatsApp,
       });
 
+      console.log('Lead enviado com sucesso:', result);
+
       // Rastrear conversão no Meta Pixel
-      trackMetaPixelLead({
-        name,
-        email,
-        phone: cleanedWhatsApp,
-        value: 0,
-        currency: 'BRL',
-      });
+      try {
+        trackMetaPixelLead({
+          name,
+          email,
+          phone: cleanedWhatsApp,
+          value: 0,
+          currency: 'BRL',
+        });
+      } catch (err) {
+        console.warn('Erro ao rastrear Meta Pixel:', err);
+      }
 
       // Rastrear conversão no Google Analytics
-      trackGoogleAnalyticsLead({
-        name,
-        email,
-        phone: cleanedWhatsApp,
-        value: 0,
-        currency: 'BRL',
-      });
+      try {
+        trackGoogleAnalyticsLead({
+          name,
+          email,
+          phone: cleanedWhatsApp,
+          value: 0,
+          currency: 'BRL',
+        });
+      } catch (err) {
+        console.warn('Erro ao rastrear Google Analytics:', err);
+      }
       
       setSuccess(true);
+      toast.success('Cadastro realizado com sucesso! Verifique seu email.');
       setEmail('');
       setName('');
       setWhatsapp('');
@@ -89,8 +107,10 @@ export default function LeadForm({ pdfUrl = 'https://files.manuscdn.com/user_upl
         setSuccess(false);
       }, 5000);
     } catch (err) {
-      setError('Erro ao enviar. Tente novamente.');
-      console.error(err);
+      const errorMessage = err instanceof Error ? err.message : 'Erro ao enviar. Tente novamente.';
+      setError(errorMessage);
+      toast.error(errorMessage);
+      console.error('Erro ao criar lead:', err);
     } finally {
       setLoading(false);
     }
@@ -120,6 +140,13 @@ export default function LeadForm({ pdfUrl = 'https://files.manuscdn.com/user_upl
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
+      {error && (
+        <div className="p-4 bg-red-500/10 border border-red-500/30 rounded-lg flex items-start gap-3">
+          <AlertCircle className="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" />
+          <p className="text-red-600 text-sm">{error}</p>
+        </div>
+      )}
+
       <div>
         <label className="block text-sm font-medium text-foreground mb-1">Nome Completo</label>
         <Input
@@ -159,19 +186,15 @@ export default function LeadForm({ pdfUrl = 'https://files.manuscdn.com/user_upl
         />
       </div>
 
-      {error && (
-        <p className="text-sm text-red-500 bg-red-500/10 p-2 rounded">{error}</p>
-      )}
-
       <Button
         type="submit"
         disabled={loading}
-        className="w-full bg-accent hover:bg-accent/90 text-accent-foreground font-bold py-3 text-lg transition-all duration-300 hover:shadow-lg hover:shadow-accent/50"
+        className="w-full bg-accent hover:bg-accent/90 text-accent-foreground font-bold py-3 rounded transition-all duration-300"
       >
         {loading ? (
           <>
             <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-            Processando...
+            Enviando...
           </>
         ) : (
           'Baixar Ebook Gratuito'
