@@ -1,4 +1,4 @@
-import { invokeLLM } from "./_core/llm";
+import { ENV } from "./_core/env";
 
 interface SendEmailParams {
   to: string;
@@ -12,13 +12,16 @@ export async function sendWelcomeEmail(params: SendEmailParams): Promise<boolean
   try {
     const { to, subject, name, whatsapp, pdfUrl } = params;
     
+    console.log('[Email] Enviando email de boas-vindas para:', to);
+    console.log('[Email] API URL:', ENV.forgeApiUrl);
+    
     // Usar a API de notificação do Manus para enviar email
     const response = await fetch(
-      `${process.env.BUILT_IN_FORGE_API_URL}/notification/email`,
+      `${ENV.forgeApiUrl}/notification/email`,
       {
         method: 'POST',
         headers: {
-          'Authorization': `Bearer ${process.env.BUILT_IN_FORGE_API_KEY}`,
+          'Authorization': `Bearer ${ENV.forgeApiKey}`,
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
@@ -55,13 +58,15 @@ export async function sendWelcomeEmail(params: SendEmailParams): Promise<boolean
     );
 
     if (!response.ok) {
-      console.error('Erro ao enviar email:', response.statusText);
+      const errorText = await response.text();
+      console.error('[Email] Erro ao enviar email:', response.status, response.statusText, errorText);
       return false;
     }
 
+    console.log('[Email] Email de boas-vindas enviado com sucesso para:', to);
     return true;
   } catch (error) {
-    console.error('Erro ao enviar email:', error);
+    console.error('[Email] Erro ao enviar email:', error);
     return false;
   }
 }
@@ -74,12 +79,15 @@ export async function sendLeadNotificationToOwner(params: {
   try {
     const { name, email, whatsapp } = params;
     
+    console.log('[Email] Enviando notificação de novo lead para:', 'vanessa.barpontes@gmail.com');
+    console.log('[Email] Dados do lead:', { name, email, whatsapp });
+    
     const response = await fetch(
-      `${process.env.BUILT_IN_FORGE_API_URL}/notification/email`,
+      `${ENV.forgeApiUrl}/notification/email`,
       {
         method: 'POST',
         headers: {
-          'Authorization': `Bearer ${process.env.BUILT_IN_FORGE_API_KEY}`,
+          'Authorization': `Bearer ${ENV.forgeApiKey}`,
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
@@ -104,13 +112,15 @@ export async function sendLeadNotificationToOwner(params: {
     );
 
     if (!response.ok) {
-      console.error('Erro ao enviar notificação:', response.statusText);
+      const errorText = await response.text();
+      console.error('[Email] Erro ao enviar notificação:', response.status, response.statusText, errorText);
       return false;
     }
 
+    console.log('[Email] Notificação de novo lead enviada com sucesso');
     return true;
   } catch (error) {
-    console.error('Erro ao enviar notificação:', error);
+    console.error('[Email] Erro ao enviar notificação:', error);
     return false;
   }
 }
