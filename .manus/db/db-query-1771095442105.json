@@ -1,0 +1,76 @@
+{
+  "query": "SELECT * FROM leads LIMIT 10;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 41CmhyLk2rJS6iw.6e1e21caa6f1 --database 6xQYj9nJDHhaLAxH9wEkHg --execute SELECT * FROM leads LIMIT 10;",
+  "rows": [
+    {
+      "id": "1",
+      "name": "Vanessa Pontes",
+      "email": "atendimento@homeclubt.com",
+      "whatsapp": "11950334794",
+      "source": "landing_page",
+      "metaPixelId": "NULL",
+      "googleClientId": "NULL",
+      "createdAt": "2026-02-13 10:33:32",
+      "updatedAt": "2026-02-13 10:33:32"
+    },
+    {
+      "id": "30001",
+      "name": "Pamela",
+      "email": "pamelalincke@gmail.com",
+      "whatsapp": "51999354549",
+      "source": "landing_page",
+      "metaPixelId": "NULL",
+      "googleClientId": "NULL",
+      "createdAt": "2026-02-14 03:51:00",
+      "updatedAt": "2026-02-14 03:51:00"
+    },
+    {
+      "id": "60001",
+      "name": "Vanessa ",
+      "email": "vanessa.barpontes@gmail.com",
+      "whatsapp": "11950334794",
+      "source": "landing_page",
+      "metaPixelId": "NULL",
+      "googleClientId": "NULL",
+      "createdAt": "2026-02-14 11:27:14",
+      "updatedAt": "2026-02-14 11:27:14"
+    },
+    {
+      "id": "60002",
+      "name": "Maria Silva Teste",
+      "email": "maria.teste@example.com",
+      "whatsapp": "11987654321",
+      "source": "landing_page",
+      "metaPixelId": "NULL",
+      "googleClientId": "NULL",
+      "createdAt": "2026-02-14 11:35:06",
+      "updatedAt": "2026-02-14 11:35:06"
+    },
+    {
+      "id": "60003",
+      "name": "João Santos Teste",
+      "email": "joao.teste@example.com",
+      "whatsapp": "21987654321",
+      "source": "landing_page",
+      "metaPixelId": "NULL",
+      "googleClientId": "NULL",
+      "createdAt": "2026-02-14 11:37:11",
+      "updatedAt": "2026-02-14 11:37:11"
+    },
+    {
+      "id": "90001",
+      "name": "Vanessa",
+      "email": "vanessa.barpontes@gmail.com",
+      "whatsapp": "11950334794",
+      "source": "landing_page",
+      "metaPixelId": "NULL",
+      "googleClientId": "NULL",
+      "createdAt": "2026-02-14 18:54:32",
+      "updatedAt": "2026-02-14 18:54:32"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tname\temail\twhatsapp\tsource\tmetaPixelId\tgoogleClientId\tcreatedAt\tupdatedAt\n1\tVanessa Pontes\tatendimento@homeclubt.com\t11950334794\tlanding_page\tNULL\tNULL\t2026-02-13 10:33:32\t2026-02-13 10:33:32\n30001\tPamela\tpamelalincke@gmail.com\t51999354549\tlanding_page\tNULL\tNULL\t2026-02-14 03:51:00\t2026-02-14 03:51:00\n60001\tVanessa \tvanessa.barpontes@gmail.com\t11950334794\tlanding_page\tNULL\tNULL\t2026-02-14 11:27:14\t2026-02-14 11:27:14\n60002\tMaria Silva Teste\tmaria.teste@example.com\t11987654321\tlanding_page\tNULL\tNULL\t2026-02-14 11:35:06\t2026-02-14 11:35:06\n60003\tJoão Santos Teste\tjoao.teste@example.com\t21987654321\tlanding_page\tNULL\tNULL\t2026-02-14 11:37:11\t2026-02-14 11:37:11\n90001\tVanessa\tvanessa.barpontes@gmail.com\t11950334794\tlanding_page\tNULL\tNULL\t2026-02-14 18:54:32\t2026-02-14 18:54:32\n",
+  "stderr": "",
+  "execution_time_ms": 397
+}

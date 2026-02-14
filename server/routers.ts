@@ -66,20 +66,32 @@ export const appRouter = router({
           const pdfUrl = "https://files.manuscdn.com/user_upload_by_module/session_file/310419663029763692/DpkEZiNKWaemYiGh.pdf";
 
           // Enviar email de boas-vindas ao lead
-          await sendWelcomeEmail({
+          const emailSent = await sendWelcomeEmail({
             to: input.email,
             subject: "Seu Ebook Missão Águia está pronto! 🦅",
             name: input.name,
             whatsapp: input.whatsapp,
             pdfUrl,
           });
+          
+          if (!emailSent) {
+            console.warn('[Leads] Email de boas-vindas não foi enviado para:', input.email);
+          } else {
+            console.log('[Leads] Email de boas-vindas enviado para:', input.email);
+          }
 
           // Enviar notificação ao proprietário
-          await sendLeadNotificationToOwner({
+          const notificationSent = await sendLeadNotificationToOwner({
             name: input.name,
             email: input.email,
             whatsapp: input.whatsapp,
           });
+          
+          if (!notificationSent) {
+            console.warn('[Leads] Notificação não foi enviada para o proprietário');
+          } else {
+            console.log('[Leads] Notificação enviada para o proprietário');
+          }
 
           // Notificar o proprietário em tempo real (se houver sistema de notificação)
           // TODO: Implementar notificação em tempo real via WebSocket
